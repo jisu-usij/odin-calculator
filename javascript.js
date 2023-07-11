@@ -28,3 +28,15 @@ function operate(operator, x, y) {
       return divide(x, y);
   }
 }
+
+const display = document.querySelector('.display');
+function appendToDisplay(text) {
+  display.textContent += text;
+}
+
+const numberButtons = document.querySelectorAll('.number');
+numberButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    appendToDisplay(button.textContent);
+  });
+});
