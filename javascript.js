@@ -27,8 +27,39 @@ function operate(operator, x, y) {
   }
 }
 
-let x, y, operator;
-let numberBeingBuilt = "";
+function handleOperator() {
+  if (wasEqualPressed) {
+    operator = this.textContent;
+    wasEqualPressed = !wasEqualPressed;
+    return;
+  }
+
+  if (x === undefined) {
+    x = +numberBeingBuilt;
+  }
+
+  else {
+    y = +numberBeingBuilt;
+    x = operate(operator, x, y);
+    display.textContent = x;
+  }
+
+  numberBeingBuilt = "";
+  operator = this.textContent;
+}
+
+function handleEqual() {
+  if (operator !== undefined) {
+    if (numberBeingBuilt !== "") {
+      y = +numberBeingBuilt;
+      x = operate(operator, x, y);
+      display.textContent = x;
+      operator = undefined;
+      numberBeingBuilt = "";
+      wasEqualPressed = !wasEqualPressed;
+    }
+  }
+}
 
 /*
 Build up the number as user presses number buttons.
@@ -57,6 +88,10 @@ When equal button is pressed:
       Set operator to undefined.
 */
 
+let x, y, operator;
+let numberBeingBuilt = "";
+let wasEqualPressed = false;
+
 const display = document.querySelector('.display');
 
 const numberButtons = document.querySelectorAll('.number');
@@ -66,3 +101,11 @@ numberButtons.forEach(button => {
     display.textContent = numberBeingBuilt;
   });
 });
+
+const operatorButtons = document.querySelectorAll('.operator');
+operatorButtons.forEach(button => {
+  button.addEventListener('click', handleOperator)
+})
+
+const equalButton = document.querySelector('.equal');
+equalButton.addEventListener('click', handleEqual);
