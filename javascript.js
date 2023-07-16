@@ -27,25 +27,36 @@ function operate(operator, x, y) {
   }
 }
 
-// 3 + 2 = - 4
-
 function handleOperator() {
-  // If equal button was the last button pressed, then
-  // when an operator button is pressed, the calculation
-  // has already been done, and there is no second operand
-  // to perform an operation on, so just store the operator.
-  if (wasEqualPressed) {
-    wasEqualPressed = !wasEqualPressed;
+  if (numberBeingBuilt === "") {
+    // If equal button was the last button pressed, then
+    // when an operator button is pressed, the calculation
+    // has already been done, and there is no second operand
+    // to perform an operation on, so just store the operator.
+    if (wasEqualPressed) {
+      wasEqualPressed = !wasEqualPressed;
+    }
+
+    else {
+      if (x === undefined) {
+        alert("There is no operand to perform an operation on.");
+        return;
+      }
+      // If the first operand exists, just store the operator
+      // (and overwrite any existing operator).
+    }
   }
 
   else {
-    // No operand has been stored, so just store the operand
-    // that has been built. There is no second operand to perform
-    // an operation on.
+    // No operand has been stored, so just store the number
+    // that has been built as the first operand. There is no second
+    // operand to perform an operation on.
     if (x === undefined) {
       x = +numberBeingBuilt;
     }
 
+    // There is an existing operand, so store the number that has
+    // been built as the second operand, and perform the operation.
     else {
       y = +numberBeingBuilt;
       x = operate(operator, x, y);
