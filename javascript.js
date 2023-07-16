@@ -65,7 +65,13 @@ function handleOperator() {
     else {
       y = +numberBeingBuilt;
       x = operate(operator, x, y);
-      display.textContent = round(x);
+      const rounded = round(x);
+      if (rounded === null) {
+        alert("Oops! Sorry, the result of this calculation exceeds 8 characters. Calculator cleared.");
+        handleClear();
+        return;
+      }
+      display.textContent = rounded;
     }
   }
 
@@ -77,18 +83,43 @@ function handleEqual() {
   if (operator !== undefined && numberBeingBuilt !== "") {
     y = +numberBeingBuilt;
     x = operate(operator, x, y);
-    display.textContent = round(x);
+    const rounded = round(x);
+    if (rounded === null) {
+      alert("Oops! Sorry, the result of this calculation exceeds 8 characters. Calculator cleared.");
+      handleClear();
+      return;
+    }
+    display.textContent = rounded;
     operator = undefined;
     numberBeingBuilt = "";
     wasEqualPressed = !wasEqualPressed;
   }
 }
 
-// Function to round reliably while avoiding rounding errors
-// from https://www.jacklmoore.com/notes/rounding-in-javascript/.
+// It's not the most robust rounding, but it's good enough for
+// this simple calculator.
 function round(x) {
-  let decimals = 4;
-  return Number(Math.round(x + 'e' + decimals) + 'e-' + decimals)
+  let xString = x + '';
+  if (xString.length > 8) {
+    let arr = xString.split('.');
+    let valueBeforeDecimalPoint = arr[0];
+    if (valueBeforeDecimalPoint.length > 8) {
+      return null;
+    }
+    else {
+      // -1 at the end since the decimal point takes up a character.
+      let decimals = 8 - valueBeforeDecimalPoint.length - 1;
+      if (decimals < 0) {
+        decimals = 0;
+      }
+      // Code to round reliably while avoiding rounding errors
+      // from https://www.jacklmoore.com/notes/rounding-in-javascript/.
+      return Number(Math.round(x + 'e' + decimals) + 'e-' + decimals);
+    }
+  }
+  else {
+    return x;
+  }
 }
 
 /*
