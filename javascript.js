@@ -65,11 +65,6 @@ function handleOperator() {
     else {
       y = +numberBeingBuilt;
       x = operate(operator, x, y);
-      if (Number.isNaN(x)) {
-        alert("Oops! Sorry, that calculation is a little too much for this simple calculator to handle. Cleared the calculator.");
-        handleClear();
-        return;
-      }
       display.textContent = round(x);
     }
   }
@@ -82,11 +77,6 @@ function handleEqual() {
   if (operator !== undefined && numberBeingBuilt !== "") {
     y = +numberBeingBuilt;
     x = operate(operator, x, y);
-    if (Number.isNaN(x)) {
-      alert("Oops! Sorry, that calculation is a little too much for this simple calculator to handle. Cleared the calculator.");
-      handleClear();
-      return;
-    }
     display.textContent = round(x);
     operator = undefined;
     numberBeingBuilt = "";
