@@ -119,6 +119,28 @@ function handleClear() {
   display.textContent = "";
 }
 
+function handleNumber() {
+  if (wasEqualPressed) {
+    handleClear();
+  }
+
+  if (numberBeingBuilt === '0') {
+    // Don't show more than one zero to represent 0.
+    if (this.textContent === '0') {
+      return;
+    }
+    else {
+      numberBeingBuilt = this.textContent;
+      display.textContent = numberBeingBuilt;
+    }
+  }
+
+  else {
+    numberBeingBuilt += this.textContent;
+    display.textContent = numberBeingBuilt;
+  }
+}
+
 let x, y, operator;
 let numberBeingBuilt = "";
 // Is there a better way to get operators to work after pressing the
@@ -133,16 +155,13 @@ const display = document.querySelector('.display');
 
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    numberBeingBuilt += button.textContent;
-    display.textContent = numberBeingBuilt;
-  });
+  button.addEventListener('click', handleNumber);
 });
 
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
   button.addEventListener('click', handleOperator)
-})
+});
 
 const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', handleEqual);
