@@ -65,7 +65,12 @@ function handleOperator() {
     else {
       y = +numberBeingBuilt;
       x = operate(operator, x, y);
-      display.textContent = x;
+      if (Number.isNaN(x)) {
+        alert("Oops! Sorry, that calculation is a little too much for this simple calculator to handle. Cleared the calculator.");
+        handleClear();
+        return;
+      }
+      display.textContent = round(x);
     }
   }
 
@@ -77,11 +82,23 @@ function handleEqual() {
   if (operator !== undefined && numberBeingBuilt !== "") {
     y = +numberBeingBuilt;
     x = operate(operator, x, y);
-    display.textContent = x;
+    if (Number.isNaN(x)) {
+      alert("Oops! Sorry, that calculation is a little too much for this simple calculator to handle. Cleared the calculator.");
+      handleClear();
+      return;
+    }
+    display.textContent = round(x);
     operator = undefined;
     numberBeingBuilt = "";
     wasEqualPressed = !wasEqualPressed;
   }
+}
+
+// Function to round reliably while avoiding rounding errors
+// from https://www.jacklmoore.com/notes/rounding-in-javascript/.
+function round(x) {
+  let decimals = 4;
+  return Number(Math.round(x + 'e' + decimals) + 'e-' + decimals)
 }
 
 /*
