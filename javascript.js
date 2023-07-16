@@ -12,8 +12,8 @@ function multiply(x, y) {
 
 function divide(x, y) {
   if (y === 0) {
-    alert("Hey! No dividing by zero allowed!");
-    // clear (once implemented)
+    alert("Hey! No dividing by zero allowed!\nCleared the calculator.");
+    handleClear();
     return;
   }
   return x / y;
@@ -111,6 +111,14 @@ When equal button is pressed:
       Set operator to undefined.
 */
 
+function handleClear() {
+  x = undefined;
+  y = undefined;
+  operator = undefined;
+  numberBeingBuilt = "";
+  display.textContent = "";
+}
+
 let x, y, operator;
 let numberBeingBuilt = "";
 // Is there a better way to get operators to work after pressing the
@@ -138,3 +146,6 @@ operatorButtons.forEach(button => {
 
 const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', handleEqual);
+
+const clearButton = document.querySelector('.clear');
+clearButton.addEventListener('click', handleClear);
