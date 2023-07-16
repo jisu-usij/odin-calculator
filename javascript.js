@@ -27,21 +27,30 @@ function operate(operator, x, y) {
   }
 }
 
-function handleOperator() {
-  if (wasEqualPressed) {
-    operator = this.textContent;
-    wasEqualPressed = !wasEqualPressed;
-    return;
-  }
+// 3 + 2 = - 4
 
-  if (x === undefined) {
-    x = +numberBeingBuilt;
+function handleOperator() {
+  // If equal button was the last button pressed, then
+  // when an operator button is pressed, the calculation
+  // has already been done, and there is no second operand
+  // to perform an operation on, so just store the operator.
+  if (wasEqualPressed) {
+    wasEqualPressed = !wasEqualPressed;
   }
 
   else {
-    y = +numberBeingBuilt;
-    x = operate(operator, x, y);
-    display.textContent = x;
+    // No operand has been stored, so just store the operand
+    // that has been built. There is no second operand to perform
+    // an operation on.
+    if (x === undefined) {
+      x = +numberBeingBuilt;
+    }
+
+    else {
+      y = +numberBeingBuilt;
+      x = operate(operator, x, y);
+      display.textContent = x;
+    }
   }
 
   numberBeingBuilt = "";
@@ -49,15 +58,13 @@ function handleOperator() {
 }
 
 function handleEqual() {
-  if (operator !== undefined) {
-    if (numberBeingBuilt !== "") {
-      y = +numberBeingBuilt;
-      x = operate(operator, x, y);
-      display.textContent = x;
-      operator = undefined;
-      numberBeingBuilt = "";
-      wasEqualPressed = !wasEqualPressed;
-    }
+  if (operator !== undefined && numberBeingBuilt !== "") {
+    y = +numberBeingBuilt;
+    x = operate(operator, x, y);
+    display.textContent = x;
+    operator = undefined;
+    numberBeingBuilt = "";
+    wasEqualPressed = !wasEqualPressed;
   }
 }
 
@@ -90,6 +97,12 @@ When equal button is pressed:
 
 let x, y, operator;
 let numberBeingBuilt = "";
+// Is there a better way to get operators to work after pressing the
+// equal button without using this boolean?
+// Maybe try just setting the operator to "=" and checking
+// for that operator value in the operator handler?
+// But that's probably not too clear because "=" shouldn't really be
+// an operator...
 let wasEqualPressed = false;
 
 const display = document.querySelector('.display');
