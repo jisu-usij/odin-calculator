@@ -117,6 +117,7 @@ function handleClear() {
   operator = undefined;
   numberBeingBuilt = "";
   display.textContent = "";
+  wasEqualPressed = false;
 }
 
 function handleNumber() {
