@@ -2,3 +2,56 @@ html {
   background-color: black;
   color: white;
 }
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  display: flex;
+  /* gap: 2px; */
+}
+
+.number-row {
+  /* This was done to avoid the whitespace between buttons on the
+  same row, since the newline is treated as whitespace. */
+  display: flex;
+}
+
+.number-container {
+  display: flex;
+  flex-direction: column;
+  /* gap: 2px; */
+}
+
+.function-container {
+  display: flex;
+}
+
+.function-column {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+
+/* .equal {
+  flex-grow: 2;
+}
+
+.clear {
+  flex-grow: 1;
+} */

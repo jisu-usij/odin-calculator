@@ -65,6 +65,9 @@ function handleOperator() {
     else {
       y = +numberBeingBuilt;
       x = operate(operator, x, y);
+      if (x === undefined) {
+        return;
+      }
       const rounded = round(x);
       if (rounded === null) {
         alert("Oops! Sorry, the result of this calculation exceeds 8 characters. Calculator cleared.");
@@ -83,6 +86,9 @@ function handleEqual() {
   if (operator !== undefined && numberBeingBuilt !== "") {
     y = +numberBeingBuilt;
     x = operate(operator, x, y);
+    if (x === undefined) {
+      return;
+    }
     const rounded = round(x);
     if (rounded === null) {
       alert("Oops! Sorry, the result of this calculation exceeds 8 characters. Calculator cleared.");
