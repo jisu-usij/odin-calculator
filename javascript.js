@@ -175,8 +175,10 @@ function handleNumber() {
   }
 
   else {
-    numberBeingBuilt += this.textContent;
-    display.textContent = numberBeingBuilt;
+    if (numberBeingBuilt.length < 8) {
+      numberBeingBuilt += this.textContent;
+      display.textContent = numberBeingBuilt;
+    }
   }
 }
 
